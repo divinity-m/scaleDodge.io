@@ -14,6 +14,7 @@ function resizeCursorCanvas() {
     cnv.height = window.innerHeight;
     offsetX = (cnv.width - GAME_WIDTH) / 2;
     offsetY = (cnv.height - GAME_HEIGHT) / 2 + 25;
+    
 }
 window.addEventListener("resize", resizeCursorCanvas);
 resizeCursorCanvas();
@@ -337,8 +338,8 @@ function draw() {
     else cnv.style.pointerEvents = "auto";
     
     
-    ctx.save();
-    ctx.translate(offsetX, offsetY); // translate to the offset
+    //ctx.save();
+    //ctx.translate(offsetX, offsetY); // translate to the offset
   
     ctx.fillStyle = "rgb(185, 185, 185)";
     ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
@@ -435,14 +436,15 @@ function draw() {
         musicCollisions();
     }
   
-    ctx.restore(); // reverse the offset
+    //ctx.restore(); // reverse the offset 
+    /*
     if (gameState === "musicMode") { // clear screen to not show dangers clipping out of the boundaries
         ctx.fillStyle = "rgb(255, 255, 255)";
         ctx.fillRect(0, 0, offsetX, cnv.height); // left
         ctx.fillRect(0, 0, cnv.width, offsetY); // top
         ctx.fillRect(0, offsetY+GAME_HEIGHT, cnv.width, offsetY-25); // bottom 
         ctx.fillRect(cnv.width-offsetX, 0, offsetX, cnv.height); // right
-    }
+    }*/
   
     // CURSOR STUFF
     function drawCursorCircle(x, y, r, type) {
@@ -459,8 +461,9 @@ function draw() {
     allClicks = allClicks.filter(c => c.av > 0); // removes clicks with low av's
   
     // Makes default cursor invisible
-    if (settings.customCursor) document.documentElement.classList.add("no-cursor");
-    else { document.documentElement.classList.remove("no-cursor"); allCursors = []; }
+    /*if (settings.customCursor) document.documentElement.classList.add("no-cursor");
+    else { document.documentElement.classList.remove("no-cursor"); allCursors = []; }*/
+    document.documentElement.classList.remove("no-cursor");
   
     // Cursor & Cursor Trail
     if (settings?.customCursor && cursorX !== undefined && cursorY !== undefined) {
