@@ -6,15 +6,12 @@ const ctx = cnv.getContext('2d');
 // game units
 const GAME_WIDTH = 800;
 const GAME_HEIGHT = 650;
-let offsetX = (cnv.width - GAME_WIDTH) / 2;
-let offsetY = (cnv.height - GAME_HEIGHT) / 2 + 25;
+cnv.width = GAME_WIDTH;
+cnv.height = GAME_HEIGHT;
 
 function resizeCursorCanvas() {
-    cnv.width = window.innerWidth;
-    cnv.height = window.innerHeight;
-    offsetX = (cnv.width - GAME_WIDTH) / 2;
-    offsetY = (cnv.height - GAME_HEIGHT) / 2 + 25;
-    
+    cnv.style.marginLeft = (window.innerWidth - GAME_WIDTH) / 2;
+    cnv.style.marginTop = (window.innerHeight - GAME_HEIGHT) / 2 + 25;
 }
 window.addEventListener("resize", resizeCursorCanvas);
 resizeCursorCanvas();
@@ -334,13 +331,10 @@ function draw() {
     ctx.clearRect(0, 0, cnv.width, cnv.height);
     
     // pointer-events toggle based on cursor locaction
-    if (cursorX < 0 || cursorX > cnv.width || cursorY < offsetY-10 || cursorY > cnv.height) cnv.style.pointerEvents = "none";
+    if (cursorX < 0 || cursorX > cnv.width || cursorY < offsetY-10 || cursorY > cnv.height) cnv.style.pointerEvents = "none"; // the little point cursor thingy
     else cnv.style.pointerEvents = "auto";
+
     
-    
-    //ctx.save();
-    //ctx.translate(offsetX, offsetY); // translate to the offset
-  
     ctx.fillStyle = "rgb(185, 185, 185)";
     ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
     detectHover(); // checks if the mouse is hovering over a button
@@ -461,11 +455,12 @@ function draw() {
     allClicks = allClicks.filter(c => c.av > 0); // removes clicks with low av's
   
     // Makes default cursor invisible
-    /*if (settings.customCursor) document.documentElement.classList.add("no-cursor");
-    else { document.documentElement.classList.remove("no-cursor"); allCursors = []; }*/
-    document.documentElement.classList.remove("no-cursor");
+    if (settings.customCursor) document.documentElement.classList.add("no-cursor");
+    else { document.documentElement.classList.remove("no-cursor"); allCursors = []; }
+    
   
     // Cursor & Cursor Trail
+    /*
     if (settings?.customCursor && cursorX !== undefined && cursorY !== undefined) {
         if (trailDensity > 0) {
             const pNow = performance.now();
@@ -526,6 +521,7 @@ function draw() {
         click.r += click.addR;
         click.av -= click.subAv;
     })
+    */
 
     requestAnimationFrame(draw);
 }
