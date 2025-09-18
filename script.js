@@ -9,13 +9,6 @@ const GAME_HEIGHT = 650;
 cnv.width = GAME_WIDTH;
 cnv.height = GAME_HEIGHT;
 
-function resizeCursorCanvas() {
-    cnv.style.marginLeft = (window.innerWidth - GAME_WIDTH) / 2;
-    cnv.style.marginTop = (window.innerHeight - GAME_HEIGHT) / 2 + 25;
-}
-window.addEventListener("resize", resizeCursorCanvas);
-resizeCursorCanvas();
-
 let gameState = "loading";
 let innerGameState = "loading";
 
@@ -95,7 +88,6 @@ let allCursors = [];
 let lastCursorTrail = 0;
 let trailDensity = 0;
 window.addEventListener('mousemove', (event) => {
-    const rect = cnv.getBoundingClientRect();
     const screenX = event.clientX;
     const screenY = event.clientY;
     if (track) console.log(`x: ${mouseX.toFixed()} || y: ${mouseY.toFixed()}`);
@@ -105,8 +97,9 @@ window.addEventListener('mousemove', (event) => {
     cursorY = screenY;
 
     // offset mouse
-    mouseX = screenX - offsetX;
-    mouseY = screenY - offsetY;
+    const rect = cnv.getBoundingClientRect();
+    mouseX = screenX - rect.left;
+    mouseY = screenY - rect.top;
 });
 
 // Player & Enemies
@@ -326,18 +319,13 @@ window.addEventListener('beforeunload', () => {
 
 // Drawing the game
 function draw() {
-    now = Date.now()
-    // resets the canvas
-    ctx.clearRect(0, 0, cnv.width, cnv.height);
+    now = Date.now();
+    detectHover();
     
-    // pointer-events toggle based on cursor locaction
-    if (cursorX < 0 || cursorX > cnv.width || cursorY < offsetY-10 || cursorY > cnv.height) cnv.style.pointerEvents = "none"; // the little point cursor thingy
-    else cnv.style.pointerEvents = "auto";
-
+    ctx.clearRect(0, 0, cnv.width, cnv.height);
     
     ctx.fillStyle = "rgb(185, 185, 185)";
     ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-    detectHover(); // checks if the mouse is hovering over a button
 
     // Loading Screen
     if (now - loadingGame <= 5000 && !endLoading) { // Takes 5 seconds to load the game safely
@@ -431,11 +419,10 @@ function draw() {
     }
   
     // CURSOR STUFF
-    function drawCursorCircle(x, y, r, type) {
+    let cursorEl = document.getElementById("cursor");
+    function drawCursorCircle(x, y, r) {
         ctx.beginPath();
         ctx.arc(x, y, r, Math.PI * 2, 0);
-        if (type === "fill") ctx.fill();
-        if (type === "stroke") ctx.stroke();
     }
   
     let playerColor = player.color.slice(4, player.color.length-1);
@@ -445,14 +432,20 @@ function draw() {
     allClicks = allClicks.filter(c => c.av > 0); // removes clicks with low av's
   
     // Makes default cursor invisible
-    if (settings.customCursor) document.documentElement.classList.add("no-cursor");
-    else { document.documentElement.classList.remove("no-cursor"); allCursors = []; }
+    if (settings.customCursor) {
+        document.documentElement.classList.add("no-cursor");
+        cursorEl.style.display = "block";
+    }
+    else {
+        document.documentElement.classList.remove("no-cursor");
+        allCursors = [];
+        cursorEl.style.display = "none";
+    }
     
   
     // Cursor & Cursor Trail
-    /*
     if (settings?.customCursor && cursorX !== undefined && cursorY !== undefined) {
-        if (trailDensity > 0) {
+        /*if (trailDensity > 0) {
             const pNow = performance.now();
             if (pNow - lastCursorTrail > 16) { // ~60fps cap
                 allCursors.push(createCursor());
@@ -467,7 +460,7 @@ function draw() {
             
             cursor.r -= cursor.subR;
             cursor.av -= cursor.subAv;
-        })
+        })*/
 
         let hovering = false;
         // Canvas Buttons
@@ -479,24 +472,26 @@ function draw() {
         for (let i = 0; i < hyperlinks.length; i++) {
           if (hyperlinks[i].matches(":hover")) hovering = true;
         }
+        
         // hoving inverts cursor colors, clicking reduces alpha value
         if (hovering) {
-            if (mouseDown) ctx.fillStyle = `rgba(${playerSubColor}, 0.75)`;
-            else ctx.fillStyle = player.subColor;
-            ctx.strokeStyle = player.color;
+            if (mouseDown) cursorEl.style.backgroundColor = `rgba(${playerSubColor}, 0.75)`;
+            else cursorEl.style.backgroundColor = player.subColor;
+            cursorEl.style.borderColor = player.color;
         } else {
-            if (mouseDown) ctx.fillStyle = `rgba(${playerColor}, 0.75)`;
-            else ctx.fillStyle = player.color;
-            ctx.strokeStyle = player.subColor;
+            if (mouseDown) cursorEl.style.backgroundColor = `rgba(${playerColor}, 0.75)`;
+            else cursorEl.style.backgroundColor = player.color;
+            cursorEl.style.borderColor = player.subColor;
         }
-        ctx.lineWidth = 3;
+        
         if (lastPressing === "mouse") {
-          drawCursorCircle(cursorX, cursorY, 7.5, "fill");
-          drawCursorCircle(cursorX, cursorY, 7.5, "stroke");
+          cursorEl.style.top = `${cursorY-7.5}px`;
+          cursorEl.style.left = `${cursorX-7.5}px`;
         }
     }
-  
+      
     // Click Animation
+    /*
     allClicks.forEach(click => {
         if (click.button === "left" || click.button === "middle") ctx.strokeStyle = click.colorLeft;
         if (click.button === "right") ctx.strokeStyle = click.colorRight;
