@@ -430,16 +430,6 @@ function draw() {
         musicCollisions();
     }
   
-    //ctx.restore(); // reverse the offset 
-    /*
-    if (gameState === "musicMode") { // clear screen to not show dangers clipping out of the boundaries
-        ctx.fillStyle = "rgb(255, 255, 255)";
-        ctx.fillRect(0, 0, offsetX, cnv.height); // left
-        ctx.fillRect(0, 0, cnv.width, offsetY); // top
-        ctx.fillRect(0, offsetY+GAME_HEIGHT, cnv.width, offsetY-25); // bottom 
-        ctx.fillRect(cnv.width-offsetX, 0, offsetX, cnv.height); // right
-    }*/
-  
     // CURSOR STUFF
     function drawCursorCircle(x, y, r, type) {
         ctx.beginPath();
