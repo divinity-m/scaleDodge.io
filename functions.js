@@ -616,10 +616,15 @@ function createCursor() {
         subR: 7.5/Math.max(1, 30*trailDensity),
         subAv: 1/Math.max(1, 30*trailDensity),
     }
-    let playerColor = player.color.slice(4, player.color.length-1);
-    cursor.color = `rgba(${playerColor}, ${cursor.av})`;
     cursor.x = cursorX;
     cursor.y = cursorY;
+    
+    let playerColor = player.color.slice(4, player.color.length-1);
+    cursor.color = `rgba(${playerColor}, ${cursor.av})`;
+    
+    cursor.div = document.createElement("div");
+    cursor.div.classList.add("trail");
+                
     return cursor;
 }
 
@@ -638,6 +643,9 @@ function createClick(button) {
     let playerSubColor = player.subColor.slice(4, player.subColor.length-1);
     click.colorLeft = `rgba(${playerColor}, ${click.av})`;
     click.colorRight = `rgba(${playerSubColor}, ${click.av})`;
+
+    click.div = document.createElement("div");
+    click.div.classList.add("click");
     
     return click;
 }
