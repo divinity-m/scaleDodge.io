@@ -90,8 +90,7 @@ let trailDensity = 0;
 window.addEventListener('mousemove', (event) => {
     const screenX = event.clientX;
     const screenY = event.clientY;
-    if (track) console.log(`x: ${mouseX.toFixed()} || y: ${mouseY.toFixed()}`);
-
+    
     // cursor trails
     cursorX = screenX;
     cursorY = screenY;
@@ -100,6 +99,7 @@ window.addEventListener('mousemove', (event) => {
     const rect = cnv.getBoundingClientRect();
     mouseX = screenX - rect.left;
     mouseY = screenY - rect.top;
+    if (track) console.log(`x: ${mouseX.toFixed()} || y: ${mouseY.toFixed()}`);
 });
 
 // Player & Enemies
