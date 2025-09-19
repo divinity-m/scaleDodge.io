@@ -424,6 +424,9 @@ function draw() {
     let playerColor = player.color.slice(4, player.color.length-1);
     let playerSubColor = player.subColor.slice(4, player.subColor.length-1);
 
+    allCursors.forEach(c => { if (c.av <= 0 || trailDensity <= 0) c.div.remove(); })
+    allClicks.forEach(c => { if (c.av <= 0) c.div.remove(); })
+    
     allCursors = allCursors.filter(c => c.av > 0 && trailDensity > 0); // removes trails with low av's
     allClicks = allClicks.filter(c => c.av > 0); // removes clicks with low av's
   
@@ -445,7 +448,10 @@ function draw() {
             const pNow = performance.now();
             if (pNow - lastCursorTrail > 16) { // ~60fps cap
                 allCursors.push(createCursor());
-                if (allCursors.length > 40) allCursors.shift(); // drop oldest
+                if (allCursors.length > 40) { // drop oldest
+                    allCursors[0].div.remove();
+                    allCursors.shift();
+                }
                 lastCursorTrail = pNow;
             }
         }
