@@ -494,10 +494,9 @@ function draw() {
             cursorEl.style.borderColor = player.subColor;
         }
         
-        if (lastPressing === "mouse") {
-          cursorEl.style.top = `${cursorY-8.5}px`;
-          cursorEl.style.left = `${cursorX-8.5}px`;
-        }
+        // update cursor position
+        cursorEl.style.top = `${cursorY-8.5}px`;
+        cursorEl.style.left = `${cursorX-8.5}px`;
     }
       
     // Click Animation
