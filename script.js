@@ -490,8 +490,8 @@ function draw() {
         }
         
         if (lastPressing === "mouse") {
-          cursorEl.style.top = `${cursorY-7.5}px`;
-          cursorEl.style.left = `${cursorX-7.5}px`;
+          cursorEl.style.top = `${cursorY-8.5}px`;
+          cursorEl.style.left = `${cursorX-8.5}px`;
         }
     }
       
