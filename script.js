@@ -420,10 +420,6 @@ function draw() {
   
     // CURSOR STUFF
     let cursorEl = document.getElementById("cursor");
-    function drawCursorCircle(x, y, r) {
-        ctx.beginPath();
-        ctx.arc(x, y, r, Math.PI * 2, 0);
-    }
   
     let playerColor = player.color.slice(4, player.color.length-1);
     let playerSubColor = player.subColor.slice(4, player.subColor.length-1);
@@ -445,7 +441,7 @@ function draw() {
   
     // Cursor & Cursor Trail
     if (settings?.customCursor && cursorX !== undefined && cursorY !== undefined) {
-        /*if (trailDensity > 0) {
+        if (trailDensity > 0) {
             const pNow = performance.now();
             if (pNow - lastCursorTrail > 16) { // ~60fps cap
                 allCursors.push(createCursor());
@@ -455,12 +451,15 @@ function draw() {
         }
       
         allCursors.forEach(cursor => {
-            ctx.fillStyle = cursor.color;
-            drawCursorCircle(cursor.x, cursor.y, cursor.r, "fill");
+            cursor.div.style.backgroundColor = cursor.color;
+            cursor.div.style.top = `${cursor.y-cursor.r}px`;
+            cursor.div.style.left = `${cursor.x-cursor.r}px`;
+            cursor.div.style.width = `${cursor.r*2}px`;
+            cursor.div.style.height = `${cursor.r*2}px`;
             
             cursor.r -= cursor.subR;
             cursor.av -= cursor.subAv;
-        })*/
+        })
 
         let hovering = false;
         // Canvas Buttons
@@ -491,22 +490,33 @@ function draw() {
     }
       
     // Click Animation
-    /*
     allClicks.forEach(click => {
-        if (click.button === "left" || click.button === "middle") ctx.strokeStyle = click.colorLeft;
-        if (click.button === "right") ctx.strokeStyle = click.colorRight;
-      
-        ctx.lineWidth = 2.5;
-        drawCursorCircle(click.x, click.y, click.r, "stroke");
+        click.div.style.backgroundColor = "transparent";
+        if (click.button === "left" || click.button === "middle") click.div.style.borderColor = click.colorLeft;
+        if (click.button === "right") click.div.style.borderColor = click.colorRight;
+        
+        click.div.style.borderWidth = "2px";
+        click.div.style.top = `${click.y-click.r}px`;
+        click.div.style.left = `${click.x-click.r}px`;
+        click.div.style.width = `${click.r*2}px`;
+        click.div.style.height = `${click.r*2}px`;
+        
         if (click.button === "middle") {
-            ctx.strokeStyle = click.colorRight;
-            if (click.r-2.5 > 0) drawCursorCircle(click.x, click.y, click.r-2.5, "stroke");
+            click.divMid.style.backgroundColor = "transparent";
+            click.divMid.style.borderColor = click.colorRight;
+            if (click.r-2.5 > 0) {
+                click.divMid.style.borderWidth = "2px";
+                click.divMid.style.top = `${click.y-click.r}px`;
+                click.divMid.style.left = `${click.x-click.r}px`;
+                click.divMid.style.width = `${(click.r-2.5)*2}px`;
+                click.divMid.style.height = `${(click.r-2.5)*2}px`;
+            }
         }
 
         click.r += click.addR;
         click.av -= click.subAv;
     })
-    */
+    
 
     requestAnimationFrame(draw);
 }
