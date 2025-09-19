@@ -1,5 +1,5 @@
 // DODGE.IO - SCRIPT.JS
-console.log("clicks being ass")
+console.log("clicks fixed")
 const cnv = document.getElementById("game");
 const ctx = cnv.getContext('2d');
 
@@ -425,7 +425,12 @@ function draw() {
     let playerSubColor = player.subColor.slice(4, player.subColor.length-1);
 
     allCursors.forEach(c => { if (c.av <= 0 || trailDensity <= 0) c.div.remove(); })
-    allClicks.forEach(c => { if (c.av <= 0) c.div.remove(); })
+    allClicks.forEach(c => {
+        if (c.av <= 0) {
+            c.div.remove();
+            if (c?.divMid) c?.divMid.remove();
+        }
+    })
     
     allCursors = allCursors.filter(c => c.av > 0 && trailDensity > 0); // removes trails with low av's
     allClicks = allClicks.filter(c => c.av > 0); // removes clicks with low av's
@@ -497,25 +502,25 @@ function draw() {
       
     // Click Animation
     allClicks.forEach(click => {
-        click.div.style.borderWidth = "4px";
-        click.div.style.top = `${click.y-click.r}px`;
-        click.div.style.left = `${click.x-click.r}px`;
+        click.div.style.top = `${click.y-click.r*1.05}px`;
+        click.div.style.left = `${click.x-click.r*1.05}px`;
         click.div.style.width = `${click.r*2}px`;
         click.div.style.height = `${click.r*2}px`;
-
+        click.div.style.border = "2px solid";
+        
         click.div.style.backgroundColor = "rgba(0, 0, 0, 0)";
         if (click.button === "left" || click.button === "middle") click.div.style.borderColor = click.colorLeft;
         if (click.button === "right") click.div.style.borderColor = click.colorRight;
         
         if (click.button === "middle") {
             click.divMid.style.backgroundColor = "rgba(0, 0, 0, 0)";
-            click.divMid.style.borderColor = click.colorRight;
-            if (click.r-2.5 > 0) {
-                click.divMid.style.borderWidth = "4px";
-                click.divMid.style.top = `${click.y-click.r}px`;
-                click.divMid.style.left = `${click.x-click.r}px`;
-                click.divMid.style.width = `${(click.r-2.5)*2}px`;
-                click.divMid.style.height = `${(click.r-2.5)*2}px`;
+            let newR = click.r-3;
+            if (newR > 0) {
+                click.divMid.style.top = `${click.y-newR*1.05}px`;
+                click.divMid.style.left = `${click.x-newR*1.05}px`;
+                click.divMid.style.width = `${newR*2}px`;
+                click.divMid.style.height = `${newR*2}px`;
+                click.divMid.style.border = `2px solid ${click.colorRight}`;
             }
         }
 
