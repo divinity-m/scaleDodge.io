@@ -497,21 +497,19 @@ function draw() {
       
     // Click Animation
     allClicks.forEach(click => {
-        click.div.style.backgroundColor = "transparent";
-        if (click.button === "left" || click.button === "middle") click.div.style.borderColor = click.colorLeft;
-        if (click.button === "right") click.div.style.borderColor = click.colorRight;
-        
-        click.div.style.borderWidth = "2px";
+        click.div.style.borderWidth = "4px";
         click.div.style.top = `${click.y-click.r}px`;
         click.div.style.left = `${click.x-click.r}px`;
         click.div.style.width = `${click.r*2}px`;
         click.div.style.height = `${click.r*2}px`;
         
+        if (click.button === "left" || click.button === "middle") click.div.style.borderColor = click.colorLeft;
+        if (click.button === "right") click.div.style.borderColor = click.colorRight;
+        
         if (click.button === "middle") {
-            click.divMid.style.backgroundColor = "transparent";
             click.divMid.style.borderColor = click.colorRight;
             if (click.r-2.5 > 0) {
-                click.divMid.style.borderWidth = "2px";
+                click.divMid.style.borderWidth = "4px";
                 click.divMid.style.top = `${click.y-click.r}px`;
                 click.divMid.style.left = `${click.x-click.r}px`;
                 click.divMid.style.width = `${(click.r-2.5)*2}px`;
