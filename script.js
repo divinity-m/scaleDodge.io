@@ -213,10 +213,7 @@ let difficulty = {
 let musicVolume = 0;
 let sfxVolume = 0;
 
-let alarm9 = document.createElement("audio");
-alarm9.src = "Audio/Alarm 9 - Blue Cxve.mp3";
-alarm9.preload = "metadata";
-
+let alarm9 = document.getElementById("alarm9");
 let music = {
     var: alarm9,
     name: "Alarm 9",
@@ -226,26 +223,11 @@ let music = {
     timestamps: [],
     promise: "alarm9.play()",
 }
-
-let aNewStart = document.createElement("audio");
-aNewStart.src = "Audio/A New Start - Thygan Buch.mp3";
-aNewStart.preload = "metadata";
-
-let interstellar = document.createElement("audio");
-interstellar.src = "Audio/interstellar - pandora., chillwithme, & cødy.mp3";
-interstellar.preload = "metadata";
-
-let astralProjection = document.createElement("audio");
-astralProjection.src = "Audio/Astral Projection - Hallmore.mp3";
-astralProjection.preload = "metadata";
-
-let divine = document.createElement("audio");
-divine.src = "Audio/Divine - SOTAREKO.mp3";
-divine.preload = "metadata";
-
-let sharpPop = document.createElement("audio");
-sharpPop.src = "Audio/sharp-pop.mp3";
-sharpPop.preload = "metadata";
+let aNewStart = document.getElementById("a-new-start");
+let interstellar = document.getElementById("interstellar");
+let astralProjection = document.getElementById("astral-projection");
+let divine = document.getElementById("divine");
+let sharpPop = document.getElementById("sharp-pop");
 
 // User Data
 let lastSave = 0; // tracks how often data is saved (during gameplay)
