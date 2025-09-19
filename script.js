@@ -502,11 +502,13 @@ function draw() {
         click.div.style.left = `${click.x-click.r}px`;
         click.div.style.width = `${click.r*2}px`;
         click.div.style.height = `${click.r*2}px`;
-        
+
+        click.div.style.backgroundColor = "rgba(0, 0, 0, 0)";
         if (click.button === "left" || click.button === "middle") click.div.style.borderColor = click.colorLeft;
         if (click.button === "right") click.div.style.borderColor = click.colorRight;
         
         if (click.button === "middle") {
+            click.divMid.style.backgroundColor = "rgba(0, 0, 0, 0)";
             click.divMid.style.borderColor = click.colorRight;
             if (click.r-2.5 > 0) {
                 click.divMid.style.borderWidth = "4px";
