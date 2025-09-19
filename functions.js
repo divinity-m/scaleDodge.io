@@ -647,11 +647,11 @@ function createClick(button) {
 
     click.div = document.createElement("div");
     click.div.classList.add("click");
-    document.getElementById("cursor-effects").appendChild(cursor.div);
+    document.getElementById("cursor-effects").appendChild(click.div);
     if (click.button === "middle") {
         click.divMid = document.createElement("div");
         click.divMid.classList.add("click");
-        document.getElementById("cursor-effects").appendChild(cursor.divMid);
+        document.getElementById("cursor-effects").appendChild(click.divMid);
     }
     
     return click;
