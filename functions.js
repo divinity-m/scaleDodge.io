@@ -646,6 +646,10 @@ function createClick(button) {
 
     click.div = document.createElement("div");
     click.div.classList.add("click");
+    if (click.button === "middle") {
+        click.divMid = document.createElement("div");
+        click.divMid.classList.add("click");
+    }
     
     return click;
 }
