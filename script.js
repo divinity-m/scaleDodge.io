@@ -1,5 +1,5 @@
 // DODGE.IO - SCRIPT.JS
-console.log("got everything fundamentally down")
+console.log("div not deleting")
 const cnv = document.getElementById("game");
 const ctx = cnv.getContext('2d');
 
