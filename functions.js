@@ -624,7 +624,7 @@ function createCursor() {
     
     cursor.div = document.createElement("div");
     cursor.div.classList.add("trail");
-    document.getElementById("cursor-effects").appendChild(cursor.div);
+    document.getElementById("cursor-trail").appendChild(cursor.div);
                 
     return cursor;
 }
@@ -647,11 +647,11 @@ function createClick(button) {
 
     click.div = document.createElement("div");
     click.div.classList.add("click");
-    document.getElementById("cursor-effects").appendChild(click.div);
+    document.getElementById("cursor-clicks").appendChild(click.div);
     if (click.button === "middle") {
         click.divMid = document.createElement("div");
         click.divMid.classList.add("click");
-        document.getElementById("cursor-effects").appendChild(click.divMid);
+        document.getElementById("cursor-clicks").appendChild(click.divMid);
     }
     
     return click;
