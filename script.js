@@ -1,5 +1,5 @@
 // DODGE.IO - SCRIPT.JS
-console.log("audio bugged")
+console.log("audio bugged, cursor click fix")
 const cnv = document.getElementById("game");
 const ctx = cnv.getContext('2d');
 
