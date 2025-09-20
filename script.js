@@ -1,5 +1,5 @@
 // DODGE.IO - SCRIPT.JS
-console.log("audio bugged, cursor click fix")
+console.log("audio bugged, lag test 1 (no custom cursor)")
 const cnv = document.getElementById("game");
 const ctx = cnv.getContext('2d');
 
@@ -35,17 +35,17 @@ document.addEventListener("touchend", () => {mouseDown = false});
 document.addEventListener("touchcancel", () => {mouseDown = false});
 
 document.addEventListener("click", () => {
-    allClicks.push(createClick("left"));
+    //allClicks.push(createClick("left"));
     recordLeftClick();
 });
 document.addEventListener("contextmenu", (event) => {
-    allClicks.push(createClick("right"));
+    //allClicks.push(createClick("right"));
     event.preventDefault();
     recordRightClick(event);
 });
 document.addEventListener("auxclick", (event) => {
     if (event.button === 1) {
-        allClicks.push(createClick("middle"));
+        //allClicks.push(createClick("middle"));
         event.preventDefault();
         recordMiddleClick(event);
     }
@@ -399,7 +399,7 @@ function draw() {
         abilities();
         musicCollisions();
     }
-  
+/*
     // CURSOR STUFF
     let cursorEl = document.getElementById("cursor");
   
@@ -508,7 +508,7 @@ function draw() {
         click.r += click.addR;
         click.av -= click.subAv;
     })
-    
+*/
 
     requestAnimationFrame(draw);
 }
